@@ -76,12 +76,23 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
 <script>
-  let countBack = null;
-  $(".counter").waypoint(function() {
-    if(countBack) clearInterval(countBack)
-    countBack = setInterval((function(){
-      ++this.textContent;
-    }).bind(this.element), 1000);
+  let currentCounter = null;
+  // let previousValue = undefined;
+  // let lastCounter = null;
+  $(".counter").waypoint(function (direction) {
+    // previousValue = this.element.textContent;
+    // console.log(previousValue)
+    if (currentCounter) clearInterval(currentCounter)
+    if (direction === 'down') {
+      currentCounter = setInterval((function () {
+        ++this.textContent;
+      }).bind(this.element), 1000);
+    }
+    if (direction === 'up') {
+      currentCounter = setInterval((function () {
+        ++this.textContent;
+      }).bind(this.element.parentElement.previousElementSibling), 1000);
+    }
   }, { offset: '100%' });
 </script>
 
