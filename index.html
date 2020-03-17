@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+    body,
+    html {
+      padding: 0px;
+      margin: 0px;
+      list-style: none;
+      font-size: 16px;
+      background-color: #ffffff;
+      font-family: "Graphik", Arial, Helvetica, sans-serif;
+      position: absolute !important;
+      min-height: 100%;
+      width: 100%;
+      color: #232323;
+      font-size: calc(18px + 6 * ((100vw - 320px) / 680));
+      line-height: 1.33;
+    }
+
+    #page {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      display: block;
+      background-position: top center;
+      position: absolute;
+    }
+
+    .frame {
+      min-height: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .color-red {
+      background-color: red;
+    }
+
+    .color-blue {
+      background-color: blue;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <div id="page">
+    <div class="frame color-red">
+      <div class="counter">300</div>
+    </div>
+    <div class="frame color-blue">
+      <div class="counter">-30</div>
+    </div>
+    <div class="frame color-red">
+      <div class="counter">50</div>
+    </div>
+    <div class="frame color-blue">
+      <div class="counter">+500</div>
+    </div>
+  </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+<script>
+  let countBack = null;
+  $(".counter").waypoint(function() {
+    if(countBack) clearInterval(countBack)
+    countBack = setInterval((function(){
+      ++this.textContent;
+    }).bind(this.element), 1000);
+  }, { offset: '100%' });
+</script>
+
+</html>
