@@ -77,21 +77,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
 <script>
   let currentCounter = null;
-  // let previousValue = undefined;
-  // let lastCounter = null;
+  let lastValue = undefined;
+  let lastCounter = null;
   $(".counter").waypoint(function (direction) {
-    // previousValue = this.element.textContent;
-    // console.log(previousValue)
+    if(lastCounter) lastCounter.textContent = lastValue;
     if (currentCounter) clearInterval(currentCounter)
     if (direction === 'down') {
+      lastCounter = this.element
+      lastValue = lastCounter.textContent
       currentCounter = setInterval((function () {
         ++this.textContent;
       }).bind(this.element), 1000);
     }
     if (direction === 'up') {
+      lastCounter = this.element.parentElement.previousElementSibling;
+      lastValue = lastCounter.textContent
       currentCounter = setInterval((function () {
-        ++this.textContent;
-      }).bind(this.element.parentElement.previousElementSibling), 1000);
+        if (this.parentElement.previousElementSibling) ++this.parentElement.previousElementSibling.textContent;
+      }).bind(this.element), 1000);
     }
   }, { offset: '100%' });
 </script>
